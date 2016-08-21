@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ import java.util.Date;
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    SimpleDateFormat YMD_FORMAT, MD_FORMAT;
+    SimpleDateFormat YMD_FORMAT;
     private static final Date today = new Date();
     ArrayList<FeedItem>feedItems;
     Context context;
@@ -40,13 +39,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(!today.before(today)) {
-            View view = LayoutInflater.from(context).inflate(R.layout.events_row, parent, false);
-            MyViewHolder holder = new MyViewHolder(view);
-            return holder;
-        }else {
-            return null;
-        }
+        View view = LayoutInflater.from(context).inflate(R.layout.events_row, parent, false);
+        MyViewHolder holder = new MyViewHolder(view);
+        return holder;
     }
 
     @Override
@@ -54,7 +49,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         YoYo.with(Techniques.FadeInUp).playOn(holder.cardView);
         final FeedItem current = feedItems.get(position);
         holder.Title.setText(current.getTitle());
-        holder.Description.setText(current.getDescription());
 
         //To-Do
         if(TextUtils.isEmpty(current.getParkNames())){
@@ -107,6 +101,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             public void onClick(View view) {
                 Intent intent = new Intent(context,EventDetails.class);
                 intent.putExtra("Description", current.getDescription());
+                intent.putExtra("Title", current.getTitle());
+                intent.putExtra("ParkName", current.getParkNames());
+                intent.putExtra("Link",current.getLink());
                 context.startActivity(intent);
             }
         });
@@ -118,13 +115,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView Title,Description,ParkNames, StartDate;
+        TextView Title,ParkNames, StartDate;
         ImageView Thumbnail;
         CardView cardView;
         public MyViewHolder(View itemView) {
             super(itemView);
             Title = (TextView) itemView.findViewById(R.id.titleText);
-            Description = (TextView) itemView.findViewById(R.id.shortDescription);
             cardView =(CardView) itemView.findViewById(R.id.cardView);
             ParkNames =(TextView) itemView.findViewById(R.id.park_names);
             StartDate =(TextView)itemView.findViewById(R.id.start_date);

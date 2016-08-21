@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,6 +34,7 @@ public class apiReader extends AsyncTask<Void,Void,Void>{
     ArrayList<FeedItem>feedItems;
     RecyclerView recyclerView;
     URL url;
+
 
     public  apiReader(Context context, RecyclerView recyclerView){
         this.recyclerView = recyclerView;
@@ -78,6 +81,8 @@ public class apiReader extends AsyncTask<Void,Void,Void>{
                         Node current = itemchilds.item(j);
                         if(current.getNodeName().equalsIgnoreCase("title")) {
                             item.setTitle(current.getTextContent());
+                        }else if (current.getNodeName().equalsIgnoreCase("link")){
+                            item.setLink(current.getTextContent());
                         }else if(current.getNodeName().equalsIgnoreCase("event:parknames")){
                             item.setParkNames(current.getTextContent());
                         }else if (current.getNodeName().equalsIgnoreCase("description")){

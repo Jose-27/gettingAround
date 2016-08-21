@@ -28,8 +28,7 @@
 
         <TextView
             android:lines="2"
-            android:textColor="#000"
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:padding="15dp"
             android:gravity="left"
             android:layout_width="match_parent"
@@ -37,11 +36,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/titleText"
-            android:layout_below="@+id/thum_img"
+            android:layout_below="@+id/park_names"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-        <TextView
+        <!--<TextView
             android:lines="4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,15 +51,17 @@
             android:id="@+id/shortDescription"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true" /> -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
+            android:textStyle="bold"
             android:id="@+id/park_names"
-            android:textColor="@color/black"
+            android:textColor="@color/superBlack"
+            android:layout_below="@+id/thum_img"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />

@@ -11,6 +11,7 @@ public class FeedItem {
     String endDate;
     String startTime;
     String endTime;
+    String link;
     String location;
     String image;
 
@@ -84,5 +85,13 @@ public class FeedItem {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
