@@ -1,23 +1,37 @@
 package com.example.joe.goout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class EventDetails extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+public class EventDetails extends AppCompatActivity implements OnMapReadyCallback{
     TextView textView;
     Button mButton;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
-        final Bundle bundle = getIntent().getExtras();
-        textView = (TextView) findViewById(R.id.textView);
-        textView.setText(bundle.getString("Description"));
         mButton = (Button) findViewById(R.id.sharBtn);
         mButton.setOnClickListener(new View.OnClickListener() {
 
@@ -26,6 +40,10 @@ public class EventDetails extends AppCompatActivity {
                 shareEventContent();
             }
         });
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     private void shareEventContent(){
@@ -42,10 +60,10 @@ public class EventDetails extends AppCompatActivity {
         share.putExtra(Intent.EXTRA_TEXT, "Event: " + title + "\n" + link);
 
         startActivity(Intent.createChooser(share, "Share Event"));
-
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
 
-
-
+    }
 }
