@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 public class EventDetails extends AppCompatActivity implements OnMapReadyCallback{
     TextView textView;
-    Button mButton;
+    ImageButton shareBtn, backBtn;
     private GoogleMap mMap;
 
     @Override
@@ -38,22 +39,27 @@ public class EventDetails extends AppCompatActivity implements OnMapReadyCallbac
         final Bundle bundle = getIntent().getExtras();
         textView = (TextView) findViewById(R.id.textView);
         textView.setText(bundle.getString("Description"));
-        mButton = (Button) findViewById(R.id.shareBtn);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        shareBtn = (ImageButton) findViewById(R.id.shareBtn);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 shareEventContent();
             }
         });
+        backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
-        }
+    }
 
     private void shareEventContent(){
         final Bundle bundle = getIntent().getExtras();
@@ -73,17 +79,33 @@ public class EventDetails extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
 
-        if (googleMap != null)
-        {
-
-            mMap = googleMap;
+        final View mapView = getSupportFragmentManager().findFragmentById(R.id.map).getView();
+        if (mapView.getViewTreeObserver().isAlive()){
             mMap.getUiSettings().setMapToolbarEnabled(false);
             // Add a marker in Sydney, Australia, and move the camera.
             LatLng sydney = new LatLng(-34, 151);
             mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
+            mapView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation") // We use the new method when supported
+                @SuppressLint("NewApi") // We check which build version we are using.
+                @Override
+                public void onGlobalLayout() {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    } else {
+                        mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                }
+            });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
