@@ -78,6 +78,7 @@ public class EventDetails extends AppCompatActivity implements OnMapReadyCallbac
         {
 
             mMap = googleMap;
+            mMap.getUiSettings().setMapToolbarEnabled(false);
             // Add a marker in Sydney, Australia, and move the camera.
             LatLng sydney = new LatLng(-34, 151);
             mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
