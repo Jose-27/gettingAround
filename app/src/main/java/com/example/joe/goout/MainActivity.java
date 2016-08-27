@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         if (networkDetector.isConnected()){
             setContentView(R.layout.activity_main);
             recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-            recyclerView.setHasFixedSize(true);
             apiReader apiReader = new apiReader(this,recyclerView);
             apiReader.execute();
         }else{

@@ -30,7 +30,11 @@ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EventDetails"></activity>
+        <activity
+            android:name=".EventDetails"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>
