@@ -103,6 +103,8 @@ public class apiReader extends AsyncTask<Void,Void,Void>{
                             item.setStartDate(current.getTextContent());
                         }else if(current.getNodeName().equalsIgnoreCase("event:location")){
                             item.setLocation(current.getTextContent());
+                        }else if(current.getNodeName().equalsIgnoreCase("event:coordinates")){
+                            item.setCoordinates(current.getTextContent());
                         }
                     }
                     feedItems.add(item);

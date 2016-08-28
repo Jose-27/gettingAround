@@ -14,6 +14,7 @@ public class FeedItem {
     String link;
     String location;
     String image;
+    String coordinates;
 
     public String getTitle() {
         return title;
@@ -93,5 +94,13 @@ public class FeedItem {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
     }
 }

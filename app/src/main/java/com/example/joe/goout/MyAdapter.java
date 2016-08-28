@@ -103,7 +103,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 intent.putExtra("Description", current.getDescription());
                 intent.putExtra("Title", current.getTitle());
                 intent.putExtra("ParkName", current.getParkNames());
-                intent.putExtra("Link",current.getLink());
+                intent.putExtra("Link", current.getLink());
+                intent.putExtra("Coordinates", current.getCoordinates());
                 context.startActivity(intent);
             }
         });

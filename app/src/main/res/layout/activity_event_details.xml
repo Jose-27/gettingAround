@@ -52,10 +52,9 @@
             class="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/map"
             android:layout_width="fill_parent"
-            android:layout_height="210dp"
+            android:layout_height="250dp"
             android:layout_below="@id/textView"
             android:layout_marginBottom="40dp"
-            map:cameraZoom="13"
             map:mapType="normal"
             map:liteMode="true"
             tools:context=".EventDetails" />
