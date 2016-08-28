@@ -121,13 +121,23 @@ public class EventDetails extends AppCompatActivity implements OnMapReadyCallbac
         String coordinates = bundle.getString("Coordinates");
         String title = bundle.getString("Title");
         String[] mapString = coordinates.split(",");
-        float latitude = Float.parseFloat(mapString[0]);
-        float longitude = Float.parseFloat(mapString[1]);
-        LatLng latLng = new LatLng(latitude, longitude);
+        /**
+         * makes sure that is a valid float number
+         */
+        try {
+            float latitude = Float.parseFloat(mapString[0]);
+            float longitude = Float.parseFloat(mapString[1]);
+            LatLng latLng = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(title));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f));
 
-        mMap.addMarker(new MarkerOptions()
-        .position(latLng)
-        .title(title));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f));
+        }catch (NumberFormatException e){
+            /**
+             * not a float
+             * **/
+        }
+
     }
 }
